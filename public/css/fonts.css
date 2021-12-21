@@ -1,0 +1,62 @@
+﻿
+@font-face{
+
+font-family: roboto1;
+src: url( './fonts/roboto/Roboto-Black.ttf' );
+
+}
+
+@font-face{
+
+font-family: robotobold;
+src: url( './fonts/roboto/Roboto-Bold.ttf' );
+
+}
+
+@font-face{
+
+font-family: quicksandbold;
+src: url( './fonts/quicksand/Quicksand-Bold.otf' );
+
+}
+
+
+
+@font-face{
+
+font-family: quicksand;
+src: url( './fonts/quicksand/Quicksand-Regular.otf' );
+
+}
+
+
+@font-face{
+
+font-family: comfortaa;
+src: url( './fonts/Comfortaa/Comfortaa_Regular.ttf' );
+
+}
+
+
+@font-face{
+
+font-family: caviardreams;
+src: url( './fonts/Caviar-Dreams/CaviarDreams.ttf' );
+
+}
+
+@font-face{
+
+font-family: caviardreamsbold;
+src: url( './fonts/Caviar-Dreams/Caviar_Dreams_Bold.ttf' );
+
+}
+
+
+
+@font-face{
+
+font-family: leaguespartan;
+src: url( './fonts/league-spartan/LeagueSpartan-Bold.otf' );
+
+}
