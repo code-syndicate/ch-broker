@@ -1,0 +1,37 @@
+<p class='text-center md:text-left px-2 py-12 text-xl md:text-2xl font-bold text-white'>
+    Transaction log </p>
+
+    <div class='overflow-x-scroll w-12/12 mx-auto md:mx-0 md:w-full'>
+
+<table class='border border-gray-600 w-full '>
+            <tr class='text-center text-lg text-white  font-bold'>
+                <th class='py-6'>
+                    Date
+                </th>
+                <th>
+                    Transaction ID
+                </th>
+                <th>
+                    Amount
+                </th>
+
+                <th>
+                    Details
+                </th>
+            </tr>
+
+[/ transactions.map((t)=>{ /]
+
+            <tr
+                class='text-center  hover:bg-gray-200 cursor-pointer text-base text-black bg-gray-100'>
+                <td class="py-4 px-2"> [/= t.date.toLocaleString() /] </td>
+                <td class='px-2 '> [/=t.ref/] </td>
+                <td class='px-2'> $/BTC [/=t.amount/] </td>
+                <td class='text-sm overflow-x-scroll px-2 '> [/=t.details/] </td>
+            </tr>
+
+            [/ }) /]
+
+
+        </table>
+    </div>

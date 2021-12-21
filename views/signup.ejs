@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible"
+              content="IE=edge">
+        <meta name="viewport"
+              content="width=device-width, initial-scale=1.0">
+        <title> [/= siteName /] </title>
+        <meta name='description'
+              content='</= tagline />' />
+
+        [/- include('__externals__.ejs'); /]
+        <script>
+            $(document).ready(() => {
+
+                $('#openMenu').click(() => {
+
+                    $('#menu').slideDown('fast');
+                    $('#menu').css({ 'display': 'flex' })
+                })
+
+                $('#closeMenu').click(() => {
+
+                    $('#menu').css({ 'display': 'flex' })
+                    $('#menu').slideUp('fast');
+                })
+
+                $('#openBtc').click(() => {
+
+                    $('#btc').fadeIn('fast');
+                })
+
+
+
+
+
+
+            })
+        </script>
+    </head>
+
+    <body class='bg-gray-700 min-h-screen'>
+
+
+        [/- include('__header__.ejs'); /]
+
+        <div class='relative'>
+
+            <img src='/img/bg2.jpg'
+                 alt='bg'
+                 height='200'
+                 class='object-cover hidden md:block'>
+
+            <div
+                 class='max-w-2xl absolute top-0 left-0 right-0 mx-auto border border-black mt-16 bg-gray-100 md:rounded mb-16'>
+                <form class=' pb-8 md:rounded w-11/12 mx-auto'
+                      method="post"
+                      action="/banking/authentications/sign-up/">
+
+                    <legend class='text-center text-xl font-bold text-green-500  pt-8'> Create a new
+                        account
+                    </legend>
+
+                    <div class='pb-4 '>
+
+                        [/ if (formErrors){ /]
+                        <div class='p-4 pl-12 '>
+
+                            [/ formErrors.map( (e)=>{ /]
+                            <li class='text-red-500 text-xs md:text-sm text-left font-bold'>
+                                [/= e.msg /]
+                            </li>
+                            [/ }) /]
+                        </div>
+                        [/ } /]
+
+
+
+                    </div>
+
+                    <div
+                         class='space-y-8 flex flex-col md:flex-row flex-wrap justify-evenly items-center'>
+
+                        <div class='w-full md:w-5/12 md:max-w-6/12 mt-8 md:mx-auto'>
+                            <label for='firstname'
+                                   class='text-base md:text-xl text-left text-black py-4 inline-block'>
+                                Firstname
+                            </label>
+
+                            <div class='relative'>
+                                <input type="text"
+                                       name='firstname'
+                                       id='firstname'
+                                       required
+                                       class='block  pt-3 pl-12 pb-3 w-full  pr-8  ring-1 outline-none focus:ring-2 ring-black rounded'
+                                       placeholder="Firstname" />
+
+                                <i class='bi-person absolute top-3 text-xl left-3'></i>
+
+                            </div>
+                        </div>
+
+                        <div class='w-full md:w-5/12 md:max-w-6/12 mt-8 md:mx-auto'>
+                            <label for='lastname'
+                                   class='text-base md:text-xl text-left text-black py-4 inline-block'>
+                                Lastname
+                            </label>
+
+                            <div class='relative'>
+                                <input type="text"
+                                       name='lastname'
+                                       id='lastname'
+                                       required
+                                       class='block  pt-3 pl-12 pb-3 w-full  pr-8  ring-1 outline-none focus:ring-2 ring-black rounded'
+                                       placeholder="Lastname" />
+                                <i class='bi-person absolute top-3 text-xl left-3'></i>
+                            </div>
+                        </div>
+
+
+
+                        <div class='w-full md:w-5/12 md:max-w-6/12 mt-8 md:mx-auto'>
+                            <label for='email'
+                                   class='text-base md:text-xl text-left text-black py-4 inline-block'>
+                                Email Address
+                            </label>
+
+                            <div class='relative'>
+                                <input type="email"
+                                       name='email'
+                                       id='email'
+                                       required
+                                       class='block  pt-3 pl-12 pb-3 w-full  pr-8  ring-1 outline-none focus:ring-2 ring-black rounded'
+                                       placeholder="Email address" />
+                                <i class='bi-envelope absolute top-3 text-xl left-3'></i>
+
+                            </div>
+                        </div>
+
+
+                        <div class='w-full md:w-5/12 md:max-w-6/12 mt-8 md:mx-auto'>
+                            <label for='zipcode'
+                                   class='text-base md:text-xl text-left text-black py-4 inline-block'>
+                                Postal code
+                            </label>
+
+                            <div class='relative'>
+                                <input type="text"
+                                       name='zipcode'
+                                       id='zipcode'
+                                       required
+                                       class='block  pt-3 pl-12 pb-3 w-full  pr-8  ring-1 outline-none focus:ring-2 ring-black rounded'
+                                       placeholder="Postal code" />
+                                <i class='bi-geo-alt absolute top-3 text-xl left-3'></i>
+                            </div>
+                        </div>
+
+                        <div class='w-full md:w-5/12 md:max-w-6/12 mt-8 md:mx-auto'>
+                            <label for='avatar'
+                                   class='text-base md:text-xl text-left text-black py-4 inline-block'>
+                                Avatar
+                            </label>
+
+                            <div class='relative'>
+                                <input type="file"
+                                       name='avatar'
+                                       id='avatar'
+                                       class='block  pt-3 pl-12 pb-3 w-full  pr-8  ring-1 outline-none focus:ring-2 ring-black rounded' />
+                                <i class='bi-person-bounding-box absolute top-3 text-xl left-3'></i>
+                            </div>
+                        </div>
+
+                        <div class='w-full md:w-5/12 md:max-w-6/12 mt-8 md:mx-auto'>
+                            <label class='text-base md:text-xl text-left text-black py-4 inline-block'
+                                   for='password1'> Password </label>
+
+                            <div class='relative'>
+                                <input type="password"
+                                       name='password1'
+                                       id='password1'
+                                       required
+                                       class='block  pt-3 pl-12 pb-3 w-full  pr-8  ring-1 outline-none focus:ring-2 ring-black rounded'
+                                       placeholder="Password" />
+                                <i class='bi-lock absolute top-3 text-xl left-3'></i>
+                            </div>
+                        </div>
+
+
+                        <div class='w-full md:w-5/12 md:max-w-6/12 mt-8 md:mx-auto'>
+                            <label class='text-base md:text-xl text-left text-black py-4 inline-block'
+                                   for='password2'> Confirm Password </label>
+
+                            <div class='relative'>
+                                <input type="password"
+                                       name='password2'
+                                       id='password2'
+                                       required
+                                       class='block  pt-3 pl-12 pb-3 w-full  pr-8  ring-1 outline-none focus:ring-2 ring-black rounded'
+                                       placeholder="Confirm Password" />
+                                <i class='bi-lock absolute top-3 text-xl left-3'></i>
+                            </div>
+                        </div>
+
+                        <div class='w-full md:w-5/12 md:max-w-6/12'>
+
+                            <input type='submit'
+                                   value='Sign up'
+                                   class='w-full  bg-green-500 text-white hover:bg-green-600 md:w-4/5 md:mx-auto block rounded mt-16 text-center p-4 outline-none cursor-pointer text-lg ' />
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+        [/- include('__footer__.ejs'); /]
+
+
+
+    </body>
+
+</html>
