@@ -40,8 +40,14 @@
         })
     </script>
 
-    <body class='bg-gray-700'>
+
+    <body id="" class='bg-gray-700'>
         [/- include('__header__.ejs') /]
+
+
+
+
+        
 
         <!-- Details -->
         <div id='btc'
@@ -52,7 +58,7 @@
                    class='bi-x text-xl absolute top-0 right-0 p-2 inline-block bg-gray-100 hover:bg-gray-300 text-black  cursor-pointer rounded-tr '></i>
 
 
-                <img src='/img/qr.png'
+                <img src='/img/bitcoin.jpg'
                      width='400'
                      height='400'
                      class='object-cover mx-auto block'
@@ -104,6 +110,9 @@
                  width='1000'
                  height='500'
                  alt='bg' />
+
+        <div class="absolute top-1 right-4  " id = 'google_translate_element'></div>
+
 
 
             <!-- Conditional Template Inclusion  -->
@@ -315,7 +324,7 @@
                                 <p class='text-center text-2xl inline-block  text-gray-700'>
                                     Wallet
                                     <br>
-                                    <span class='py-2 text-base'> $[/= req.user.wallet /]
+                                    <span class='py-2 text-base'> &#165;[/= req.user.wallet /]
                                     </span>
                                 </p>
                                 <i
@@ -332,7 +341,7 @@
                                 <p class='text-center text-2xl inline-block  text-gray-700'>
                                     Bonus
                                     <br>
-                                    <span class='py-2 text-base'> $[/= req.user.bonus /] </span>
+                                    <span class='py-2 text-base'> &#165;[/= req.user.bonus /] </span>
                                 </p>
                                 <i
                                    class='bi-graph-up      text-4xl inline-block px-5 py-4 bg-gray-700 text-white rounded-full'></i>
@@ -352,7 +361,7 @@
                                 <p class='text-center text-2xl inline-block  text-gray-700'>
                                     Total Withdrawal
                                     <br>
-                                    <span class='py-2 text-base'> $[/= req.user.withdrawals /]
+                                    <span class='py-2 text-base'> &#165;[/= req.user.withdrawals /]
                                     </span>
                                 </p>
                                 <i
@@ -368,7 +377,7 @@
                                 <p class='text-center text-2xl inline-block  text-gray-700'>
                                     Profit
                                     <br>
-                                    <span class='py-2 text-base'> $[/= req.user.profits /]
+                                    <span class='py-2 text-base'> &#165;[/= req.user.profits /]
                                     </span>
                                 </p>
                                 <i
