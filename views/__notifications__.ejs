@@ -1,39 +1,43 @@
+<p
+  class="text-center md:text-left font-mono px-2 py-12 text-xl md:text-base font-bold text-black"
+>
+  Notifications
+</p>
 
+<div class="overflow-x-auto bg-gray-50 w-12/12 mx-auto md:mx-0 md:w-full">
+  <table class="w-full">
+    [/ if (notifications.length > 0 ){ /]
+    <tr class="text-center text-sm opacity-70 text-green-500">
+      <th class="py-6 font-normal">Date</th>
+      <th class="py-6 font-normal">Description</th>
+      <th class="py-6 font-normal">Action</th>
+    </tr>
+    [/ } /] [/ if (notifications.length === 0 ){ /]
 
-        <p class='text-left px-6 py-12 text-2xl font-bold text-white'>
-            Notifications </p>
-    <div class='overflow-x-scroll w-12/12 mx-auto md:mx-0 md:w-full'>
+    <p class="bg-gray-50 py-12 text-center">No recent notifications</p>
 
-        <table class='w-full border border-gray-600  '>
-            <tr class='text-center text-lg text-white  font-bold'>
-                <th class='py-6'>
-                    Description
-                </th>
-                <th>
-                    Date
-                </th>
+    [/ } /] [/ notifications.map((t)=>{ /]
 
+    <tr
+      class="text-center hover:bg-gray-100 cursor-pointer border-t border-gray-300 text-base text-black bg-gray-50"
+    >
+      <td class="py-6 px-2 text-gray-400 text-sm">
+        [/= t.date.toLocaleString() /]
+      </td>
+      <td class="text-center overflow-x-auto px-2 text-sm text-gray-700">
+        [/=t.description/]
+      </td>
 
-                <th>
-                    Action
-                </th>
-            </tr>
+      <td>
+        <a href="/banking/notifications/[/=t._id/]/delete/"
+          ><i
+            title="Mark as read"
+            class="bi-check-lg text-white bg-green-500 hover:bg-green-600 inline-block py-1 px-2"
+          ></i
+        ></a>
+      </td>
+    </tr>
 
-
-
-            [/ notifications.map((t)=>{ /]
-
-            <tr class='text-center  hover:bg-gray-200 cursor-pointer text-base text-black bg-gray-100'>
-                <td class="py-4 PX-2"> [/=t.description/] </td>
-                <td class='px-2 '> [/=t.date.toLocaleString()/] </td>
-                <td> <a href='/banking/notifications/[/=t._id/]/delete/'><i title='Mark as read'
-                           class='bi-check-lg text-white bg-green-500 hover:bg-green-600  inline-block py-1 px-2'></i></a>
-                </td>
-
-            </tr>
-
-            [/ }) /]
-
-        </table>
-    </div>
-
+    [/ }) /]
+  </table>
+</div>

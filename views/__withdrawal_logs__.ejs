@@ -1,25 +1,38 @@
-<div class="overflow-x-scroll w-12/12 mx-auto md:mx-0 md:w-full">
-  <p class="text-left px-6 py-12 text-2xl font-bold text-white">
-    Withdrawal log
-  </p>
-  <table class="w-full border border-gray-600">
-    <tr class="text-center text-lg text-white font-bold">
-      <th class="py-6">Date</th>
-      <th>Transaction ID</th>
-      <th>Amount</th>
+<p
+  class="text-center md:text-left font-mono px-2 py-12 text-xl md:text-base font-bold text-black"
+>
+  Withdrawal Logs
+</p>
 
-      <th>Details</th>
+<div class="overflow-x-auto bg-gray-50 w-12/12 mx-auto md:mx-0 md:w-full">
+  <table class="w-full">
+    [/ if (withdrawals.length > 0 ){ /]
+    <tr class="text-center text-sm opacity-70 text-green-500">
+      <th class="py-6 font-normal">Transaction ID</th>
+      <th class="py-6 font-normal">Date</th>
+      <th class="py-6 font-normal">Amount</th>
+
+      <th class="py-6 font-normal">Details</th>
     </tr>
+    [/ } /] [/ if (withdrawals.length === 0 ){ /]
 
-    [/ withdrawals.map((t)=>{ /]
+    <p class="bg-gray-50 py-12 text-center">No recent withdrawals</p>
+
+    [/ } /] [/ withdrawals.map((t)=>{ /]
 
     <tr
-      class="text-center hover:bg-gray-200 cursor-pointer text-base text-black bg-gray-100"
+      class="text-left hover:bg-gray-100 cursor-pointer border-t border-gray-300 text-base text-black bg-gray-50"
     >
-      <td class="py-4 PX-2">[/= t.date.toLocaleString() /]</td>
-      <td class="px-2">[/=t.ref/]</td>
-      <td class="px-2">&#165;[/=t.amount/]</td>
-      <td class="text-sm overflow-x-scroll px-2">[/=t.details/]</td>
+      <td class="px-2 text-sm text-green-700 opacity-70 text-center">
+        [/=t.ref/]
+      </td>
+      <td class="py-6 px-2 text-gray-400 text-sm">
+        [/= t.date.toLocaleString() /]
+      </td>
+      <td class="px-2 text-sm text-gray-700">&#165; [/=t.amount/]</td>
+      <td class="text-sm overflow-x-auto px-2 text-sm text-gray-700">
+        [/=t.details/]
+      </td>
     </tr>
 
     [/ }) /]
