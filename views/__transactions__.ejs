@@ -1,24 +1,24 @@
 <div class=" ">
   <div class="flex flex-col justify-center space-y-8 items-center mt-6">
-    <div class="pb-8 bg-gray-100 w-full relative border-8 border-green-500">
+    <div class="pb-8 bg-gray-100 w-full relative border-8 border-teal-800">
       <div
         class="flex flex-row justify-evenly text-sm md:text-lg text-gray-700 bg-gray-300 rounded-t"
       >
         <a
           href="[/= appUrl /]/?component_ref=transactions&sub_component_ref=D"
-          class="cursor-pointer block hover:bg-gray-400 flex-1 text-center py-3 [/ if (subComponent==='D') { /] bg-green-500 text-white hover:bg-green-500 [/}/]"
+          class="cursor-pointer block hover:bg-gray-400 flex-1 text-center py-3 [/ if (subComponent==='D') { /] bg-teal-800 text-white hover:bg-teal-800 [/}/]"
         >
           Make a deposit
         </a>
         <a
           href="[/= appUrl /]/?component_ref=transactions&sub_component_ref=V"
-          class="cursor-pointer block hover:bg-gray-400 flex-1 text-center py-3 [/ if (subComponent==='V') { /] bg-green-500 text-white hover:bg-green-500[/}/]"
+          class="cursor-pointer block hover:bg-gray-400 flex-1 text-center py-3 [/ if (subComponent==='V') { /] bg-teal-800 text-white hover:bg-teal-800[/}/]"
         >
           Verify deposit
         </a>
         <a
           href="[/= appUrl /]/?component_ref=transactions&sub_component_ref=W"
-          class="cursor-pointer hover:bg-gray-400 block flex-1 text-center py-3 [/ if (subComponent==='W') { /] bg-green-500 text-white hover:bg-green-500 [/}/]"
+          class="cursor-pointer hover:bg-gray-400 block flex-1 text-center py-3 [/ if (subComponent==='W') { /] bg-teal-800 text-white hover:bg-teal-800 [/}/]"
         >
           Make a withdrawal
         </a>
@@ -81,7 +81,7 @@
               type="submit"
               value="Verify"
               form="f3"
-              class="w-full bg-green-500 text-white hover:bg-green-600 md:w-4/5 md:mx-auto block rounded mt-16 text-center p-4 outline-none cursor-pointer text-lg"
+              class="w-full bg-teal-800 text-white hover:bg-teal-600 md:w-4/5 md:mx-auto block rounded mt-16 text-center p-4 outline-none cursor-pointer text-lg"
             />
           </div>
         </div>
@@ -134,11 +134,14 @@
             <div class="relative">
               <select
                 required
+                id="withdrawalType"
+                name="withdrawalType"
                 class="block overflow-x-scroll pt-3 pl-12 pb-3 w-full pr-8 ring-1 outline-none focus:ring-2 ring-black rounded"
               >
-                <option disabled>Choose a withdrawal method</option>
-                <option disabled value="1">Bank Based Transfer</option>
-                <option selected value="2">Wallet Based Transfer</option>
+                <option selected disabled>Choose a withdrawal method</option>
+                <!-- <option disabled value="1">Bank Transfer</option> -->
+                <option value="2">Wallet Transfer</option>
+                <option value="3">Paypal Transfer</option>
               </select>
 
               <i class="bi-arrow-left-right absolute top-3 text-xl left-3"></i>
@@ -152,7 +155,6 @@
                 name="walletType"
                 class="block overflow-x-scroll pt-3 pl-12 pb-3 w-full pr-8 ring-1 outline-none focus:ring-2 ring-black rounded"
               >
-                <option disabled>Wallet</option>
                 <option selected value="Bitcoin">Bitcoin</option>
               </select>
 
@@ -168,13 +170,35 @@
                 id="amount"
                 required
                 class="block pt-3 pl-12 pb-3 w-full pr-8 ring-1 outline-none focus:ring-2 ring-black rounded"
-                placeholder="Amount in dollars"
+                placeholder="Amount to withdraw"
               />
               <i class="bi-currency-exchange absolute top-3 text-xl left-3"></i>
             </div>
           </div>
 
-          <div class="w-full mx-1 md:w-5/12 md:max-w-6/12 self-center mb-8">
+          <!-- Paypal only  -->
+          <div
+            id="paypalBox"
+            class="w-full hidden mx-1 md:w-5/12 md:max-w-6/12 self-center mb-8"
+          >
+            <div class="relative">
+              <input
+                type="email"
+                name="paypal"
+                id="paypalEmail"
+                class="block pt-3 pl-12 pb-3 w-full pr-8 ring-1 outline-none focus:ring-2 ring-black rounded"
+                placeholder="Paypal email address"
+              />
+              <i class="bi-cash absolute top-3 text-xl left-3"></i>
+            </div>
+          </div>
+
+          <!-- Paypal only  -->
+
+          <div
+            id="walletBox"
+            class="w-full hidden mx-1 md:w-5/12 md:max-w-6/12 self-center mb-8"
+          >
             <div class="relative">
               <input
                 type="text"
@@ -182,7 +206,6 @@
                 id="address"
                 maxlength="48"
                 minlength="24"
-                required
                 class="block pt-3 pl-12 pb-3 w-full pr-8 ring-1 outline-none focus:ring-2 ring-black rounded"
                 placeholder="Wallet Address"
               />
@@ -196,7 +219,7 @@
             type="submit"
             value="Proceed"
             form="f1"
-            class="w-full bg-green-500 text-white hover:bg-green-600 md:w-4/5 md:mx-auto block rounded mt-16 text-center p-4 outline-none cursor-pointer text-lg"
+            class="w-full bg-teal-800 text-white hover:bg-teal-600 md:w-4/5 md:mx-auto block rounded mt-16 text-center p-4 outline-none cursor-pointer text-lg"
           />
         </div>
       </div>
@@ -220,7 +243,7 @@
           class="flex flex-col md:flex-row items-center justify-center md:justify-start p-2 mt-6 md:space-x-8"
         >
           <div
-            class="w-full p-24 mx-1 md:w-5/12 md:max-w-6/12 self-center mb-8 bg-green-500 relative shadow-xl"
+            class="w-full p-24 mx-1 md:w-5/12 md:max-w-6/12 self-center mb-8 bg-teal-800 relative shadow-xl"
           >
             <div class="absolute top-2 left-0">
               <i class="bi-currency-bitcoin text-6xl text-white"></i>
@@ -232,7 +255,7 @@
 
               <span
                 id="openBtc"
-                class="text-center bg-gray-400 text-sm font-sans block text-white mt-2 capitalize mx-2 p-1 px-2 shadow cursor-pointer"
+                class="text-center bg-gray-50 text-sm font-sans block text-teal-900 mt-2 capitalize mx-2 p-1 px-2 shadow shadow-white cursor-pointer"
               >
                 show wallet details
               </span>
@@ -246,7 +269,7 @@
             />
           </div>
           <div
-            class="w-full p-24 mx-1 md:w-5/12 md:max-w-6/12 self-center mb-8 bg-green-500 relative shadow-xl"
+            class="w-full p-24 mx-1 md:w-5/12 md:max-w-6/12 self-center mb-8 bg-teal-800 relative shadow-xl"
           >
             <div class="absolute top-2 left-0">
               <i class="bi-currency-dollar text-6xl text-white"></i>
@@ -266,13 +289,13 @@
         </div>
         <!-- Instructions  -->
         <div class="mt-6">
-          <div class="mt-2 mx-1 bg-green-400 text-white px-6 py-3">
+          <div class="mt-2 mx-1 bg-teal-500 text-white px-6 py-3">
             <p class="text-center font-bold uppercase">
               &nbsp; GUIDELINES FOR DEPOSITS
             </p>
           </div>
           <div
-            class="mt-2 mx-1 bg-green-300 text-white px-6 py-3 border-l-4 border-gray-500"
+            class="mt-2 mx-1 bg-teal-600 text-white px-6 py-3 border-l-4 border-r-4 border-black"
           >
             <p class="my-2">
               <i class="bi-star py-4"></i> &nbsp; Make your deposit by copying
@@ -423,7 +446,7 @@
             type="submit"
             value="Verify payment"
             form="f2"
-            class="w-full bg-green-500 text-white hover:bg-green-600 md:w-4/5 md:mx-auto block rounded mt-16 text-center p-4 outline-none cursor-pointer text-lg"
+            class="w-full bg-teal-800 text-white hover:bg-teal-600 md:w-4/5 md:mx-auto block rounded mt-16 text-center p-4 outline-none cursor-pointer text-lg"
           />
         </div>
       </div>

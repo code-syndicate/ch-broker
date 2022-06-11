@@ -60,7 +60,24 @@ async function deleteNotification(req, res) {
   req.flash("info", "Notification marked as read");
   res.locals.flash = true;
 
-  res.redirect("/banking/app/");
+  res.redirect("/banking/app/?component_ref=notifications");
+}
+
+async function markDepositAsCredited(req, res) {
+  const deposit = await Deposit.findById(req.params.depositId).exec();
+  deposit.approved = true;
+  await deposit.save();
+  req.user.deposits += deposit.amount;
+  await req.user.save();
+  req.flash("info", "Deposit marked as credited");
+  res.locals.flash = true;
+
+  await new Notification({
+    listener: req.user.id,
+    description: `Deposit with reference ID - ${deposit.ref} has been approved`,
+  }).save();
+
+  res.redirect("/admin/overview/?ui=deposits");
 }
 
 const registerDeposit = [
@@ -122,9 +139,14 @@ const registerDeposit = [
 const registerWithdrawal = [
   body("walletType", "Wallet type is required").isAlphanumeric().notEmpty(),
   body("amount", "Amount is required").isNumeric().notEmpty(),
+  body("paypal", "Paypal email is required")
+    .isEmail()
+    .withMessage("Invalid Paypal email")
+    .normalizeEmail()
+    .optional({ nullable: true, checkFalsy: true }),
   body("address", "Wallet address is required")
-    .notEmpty()
     .isBtcAddress()
+    .optional({ nullable: true, checkFalsy: true })
     .withMessage("Please enter a valid wallet address"),
 
   async function (req, res) {
@@ -140,14 +162,50 @@ const registerWithdrawal = [
     const walletType = req.body.walletType;
     const amount = req.body.amount;
     const address = req.body.address;
+    const type = +req.body.withdrawalType;
+    const paypal = req.body.paypal;
 
-    const withdrawal = new Withdrawal({
-      amount,
-      client: req.user.id,
-      walletAdrress: address,
-      walletType,
-      details: `Initiated a withdrawal of $${amount} into ${walletType} wallet address - ${address}`,
-    });
+    if (!paypal && !address) {
+      req.flash("info", "Please input a withdrawal channel");
+      res.locals.flash = true;
+
+      res.redirect(
+        "/banking/app/?component_ref=transactions&sub_component_ref=W"
+      );
+      return;
+    }
+
+    if (+amount > req.user.wallet + req.user.bonus) {
+      req.flash("info", "Insufficient balance");
+      res.locals.flash = true;
+
+      res.redirect(
+        "/banking/app/?component_ref=transactions&sub_component_ref=W"
+      );
+      return;
+    }
+
+    let withdrawal = null;
+
+    if (type === 2) {
+      withdrawal = new Withdrawal({
+        amount,
+        client: req.user.id,
+        walletAdrress: address,
+        type: 2,
+        walletType,
+        details: `Initiated a withdrawal of $${amount} into ${walletType} wallet with address - ${address}`,
+      });
+    } else if (type === 3) {
+      withdrawal = new Withdrawal({
+        amount,
+        client: req.user.id,
+        paypal,
+        type: 3,
+        walletType,
+        details: `Initiated a withdrawal of $${amount} into Paypal account with ID ${paypal}`,
+      });
+    }
 
     const newAuthPin = AuthPin({
       client: req.user._id,
@@ -205,9 +263,13 @@ async function index(req, res) {
 
   let transactions;
 
-  let deposits = await Deposit.find({ client: req.user.id }).lean().exec();
+  let deposits = await Deposit.find({ client: req.user.id })
+    .sort({ date: -1 })
+    .lean()
+    .exec();
   deposits = deposits.slice(0, 10);
   let withdrawals = await Withdrawal.find({ client: req.user.id })
+    .sort({ date: -1 })
     .lean()
     .exec();
   withdrawals = withdrawals.slice(0, 10);
@@ -216,6 +278,7 @@ async function index(req, res) {
     listener: req.user.id,
     status: "UNREAD",
   })
+    .sort({ date: -1 })
     .lean()
     .exec();
 
@@ -245,4 +308,5 @@ module.exports = {
   deleteNotification,
   home,
   verifyTx,
+  markDepositAsCredited,
 };

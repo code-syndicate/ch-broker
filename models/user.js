@@ -32,6 +32,7 @@ const userSchema = mongoose.Schema({
 	password: String,
 	isAdmin: {type: Boolean, default: false},
 	withdrawals: {type: Number, default: 0, min: 0},
+	deposits: {type: Number, default: 0, min: 0},
 	bonus: {type: Number, default: 0, min: 0},
 	profits: {type: Number, default: 0, min: 0},
 	wallet: {type: Number, default: 0, min: 0},

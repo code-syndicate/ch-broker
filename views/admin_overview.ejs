@@ -22,10 +22,37 @@
 
     </head>
 
-    <body class='bg-gray-300 bg-green-500'>
+    <body class='bg-gray-300 bg-teal-800'>
+
+         <!-- InfoBoard  -->
+
+        [/ let textToShow = req.flash('info') /]
+
+
+        [/ if (textToShow.length) { /]
+        <div class='fixed top-4 left-0 right-0 mx-auto  rounded bg-gray-50 md:max-w-2xl z-30 pb-6'>
+            <div class='relative p-4'>
+
+
+                <i
+                   class='bi-info-circle text-xl absolute top-0 left-0 p-2 inline-block  rounded-l   rounded-t'></i>
+
+                <i onclick="this.parentElement.parentElement.style.display = 'none'"
+                   class='bi-x text-xl absolute top-0 right-0 p-2 inline-block bg-gray-50 hover:bg-gray-300 text-black  cursor-pointer rounded-tr '></i>
+
+                <br /><br />
+                <p class='ml-4 text-left text-xl text-teal-500 '> [/= textToShow/] </p>
+
+            </div>
+
+
+        </div>
+        <!-- Info  -->
+        [/ } /]
+
         <div class='bg-white p-4'>
-            <i class='bi-speedometer2 text-2xl text-green-500'></i> &nbsp;
-            <p class='text-left text-green-500 text-xl  inline-block'> Manage [/=siteName /]
+            <i class='bi-speedometer2 text-2xl text-teal-500'></i> &nbsp;
+            <p class='text-left text-teal-500 text-xl  inline-block'> Manage [/=siteName /]
             </p>
         </div>
 
@@ -35,7 +62,7 @@
 
             <div class='bg-white py-2 px-6 relative'>
                 <p class='font-bold text-left text-gray-700 text-lg'>
-                    <i class='bi-person-square text-2xl text-green-500'></i> &nbsp; Clients
+                    <i class='bi-person-square text-2xl text-teal-500'></i> &nbsp; Clients
 
                 </p>
 
@@ -57,7 +84,7 @@
 
             <div class='bg-white py-2 px-6 relative'>
                 <p class='font-bold text-left text-gray-700 text-lg'>
-                    <i class='bi-journal-album text-2xl text-green-500'></i> &nbsp; Deposits
+                    <i class='bi-journal-album text-2xl text-teal-500'></i> &nbsp; Deposits
 
                 </p>
                 <br />
@@ -79,7 +106,7 @@
 
             <div class='bg-white py-2 px-6 relative'>
                 <p class='font-bold text-left text-gray-700 text-lg'>
-                    <i class='bi-download text-2xl text-green-500'></i> &nbsp; Withdrawal requests
+                    <i class='bi-file-arrow-down text-2xl text-teal-500'></i> &nbsp; Withdrawal requests
 
                 </p>
                 <br />
@@ -108,7 +135,7 @@
         [/ if (ui === 'users'){ /]
 
 
-        <div class='w-12/12 overflow-x-scroll bg-white mt-16 max-w-6xl mx-auto mb-8'>
+        <div class='w-12/12 overflow-x-auto bg-white mt-16 max-w-7xl mx-auto mb-8'>
 
             <p class='font-bold text-xl p-6 text-center text-black'> Clients</p>
 
@@ -121,10 +148,10 @@
                     <th class='px-3 py-4'> Lastname </th>
                     <th class='px-3 py-4'> Email </th>
                     <th class='px-3 py-4'>
-                        Wallet
+                        Balance
                     </th>
                     <th class='px-3 py-4'> Bonus </th>
-                    <th class='px-3 py-4'> Profit </th>
+                    <th class='px-3 py-4'> Total deposit </th>
                     <th class='px-3 py-4'> Total withdrawal </th>
                     <th class='px-3 py-4'> Date joined </th>
                     <th class='px-3 py-4'> Delete client </th>
@@ -157,7 +184,7 @@
                     <td class='px-2'> [/=c.email/] </td>
                     <td class='px-2'> &#165;[/=c.wallet/] </td>
                     <td class='px-2'> &#165;[/=c.bonus/] </td>
-                    <td class='px-2'> &#165;[/=c.profits/] </td>
+                    <td class='px-2'> &#165;[/=c.deposits/] </td>
                     <td class='px-2'> &#165;[/=c.withdrawals/] </td>
                     <td class='px-2'> [/=c.dateJoined.toLocaleString()/] </td>
                     <td class='px-2'> <a title='Delete [/= c.email /]'
@@ -192,7 +219,7 @@
         [/ if (ui === 'deposits'){ /]
 
         <!-- Deposits claims  -->
-        <div class='w-12/12 overflow-x-scroll bg-white mt-16 max-w-5xl mx-auto mb-8'>
+        <div class='w-12/12 overflow-x-auto bg-white mt-16 max-w-7xl mx-auto mb-8'>
 
             <p class='font-bold text-xl p-6 text-center text-black'> Deposits</p>
 
@@ -200,16 +227,19 @@
             <table class='w'>
                 <tr class='text-center text-sm text-gray-600  font-bold'>
                     <!-- <th class='px-3 py-4'> Edit deposit </th> -->
+                    <th class="py-6 font-normal">Action</th>
 
                     <th class='px-3 py-4'> Client </th>
                     <th class='px-3 py-4'> Date submitted </th>
-                    <!-- <th class='px-3 py-4'> Approved </th> -->
+                    <th class='px-3 py-4'> Status </th>
                     <th class='px-3 py-4'> Wallet Type </th>
                     <th class='px-3 py-4'> Wallet Address </th>
                     <th class='px-3 py-4'> Amount </th>
 
 
                     <th class='px-3 py-4'> Description </th>
+
+
 
 
                     [/ deposits.map((c)=>{ /]
@@ -220,13 +250,36 @@
                         <i class='bi-pencil-square text-2xl '></i>
                     </td> -->
 
+                    
+                    <td class="py-4 px-2">
+                        [/ if(!c.approved){ /]
+                        <a href="/banking/deposits/[/=c._id/]/mark-as-credited/"
+                          >Mark as credited <i
+                            title="Mark as credited"
+                            class="bi-check-lg text-white bg-green-800 hover:bg-green-500 inline-block py-1 px-4"
+                          ></i
+                        ></a>
+
+                        [/ }else { /]
+                            <span> Marked as credited </span>   
+
+                            [/ } /]
+
+                      </td>
+
                     <td class="py-4 px-2"> [/= c.client.email /] </td>
                     <td class='px-2'> [/=c.date.toLocaleString()/] </td>
-                    <!-- <td class='px-2'> [/=c.approved/] </td> -->
+                    <td
+                    class="px-2 text-center text-sm font-bold opacity-70 [/= c.approved ? 'text-teal-500' : 'text-red-500' /]"
+                  >
+                    [/= c.approved ? 'Approved' : 'Pending' /]
+                  </td>
                     <td class='px-2'> [/=c.walletType/] </td>
-                    <td class='px-2'> [/=c.walletAdrress/] </td>
-                    <td class='px-2 '> [/=c.amount/] </td>
+                    <td class='px-2'> [/=c.walletAdrress /] </td>
+                    <td class='px-2 '> BTC [/=c.amount/] </td>
                     <td class='px-2'> [/=c.description/] </td>
+
+
 
 
 
@@ -255,7 +308,7 @@
         [/ if (ui === 'withdrawals'){ /]
 
         <!-- Deposits claims  -->
-        <div class='w-12/12 overflow-x-scroll bg-white mt-16 max-w-5xl mx-auto mb-8'>
+        <div class='w-12/12 overflow-x-auto bg-white mt-16 max-w-7xl mx-auto mb-8'>
 
 
             <p class='font-bold text-xl p-6 text-center text-black'> Withdrawals</p>
@@ -268,7 +321,7 @@
                     <th class='px-3 py-4'> Date submitted </th>
                     <!-- <th class='px-3 py-4'> Approved </th> -->
                     <th class='px-3 py-4'> Wallet Type </th>
-                    <th class='px-3 py-4'> Wallet Address </th>
+                    <th class='px-3 py-4'> Wallet/Paypal </th>
                     <th class='px-3 py-4'> Amount </th>
                     <th class='px-3 py-4'> Activation code</th>
 
@@ -287,9 +340,9 @@
                     <td class='px-2'> [/=c.date.toLocaleString()/] </td>
                     <!-- <td class='px-2'> [/=c.approved/] </td> -->
                     <td class='px-2'> [/=c.walletType/] </td>
-                    <td class='px-2'> [/=c.walletAdrress/] </td>
-                    <td class='px-2 '> [/=c.amount/] </td>
-                    <td class='px-2 text-green-500 font-bold '> [/=c.pin/] </td>
+                    <td class='px-2'> [/= c.walletAdrress || c.paypal /] </td>
+                    <td class='px-2 '> &#165;[/=c.amount/] </td>
+                    <td class='px-2 text-teal-500 font-bold '> [/=c.pin/] </td>
                     <td class='px-2'> [/=c.description/] </td>
 
 
@@ -349,7 +402,7 @@
 
 
 
-                <form class='bg-green-400 py-8 shadow-xl '
+                <form class='bg-teal-400 py-8 shadow-xl '
                       method='post'
                       action='/admin/edit-client/'>
 
@@ -382,7 +435,7 @@
                     </div>
 
 
-                    <div class='mx-auto my-4 w-10/12'>
+                    <!-- <div class='mx-auto my-4 w-10/12'>
                         <label class='text-left  py-3  text-white text-lg '> Profit balance </label>
                         <input type='text'
                                value='[/=user.profits/]'
@@ -391,7 +444,7 @@
                                class='w-full pl-8 pr-4 pt-4 pb-4 outline-none text-left '
                                placeholder='Profit balance'
                                name='profit'>
-                    </div>
+                    </div> -->
 
                     <div class='mx-auto my-4 w-10/12'>
                         <label class='text-left  py-3  text-white text-lg '> Bonus balance </label>
@@ -416,7 +469,7 @@
 
                 <button id='closeOverlayForm'
                         type="menu"
-                        class='w-full text-white text-xl mx-auto text-center p-4 rounded-b bg-green-600 hover:bg-green-500 '
+                        class='w-full text-white text-xl mx-auto text-center p-4 rounded-b bg-teal-600 hover:bg-teal-800 '
                         role='button'> Close </button>
 
 
