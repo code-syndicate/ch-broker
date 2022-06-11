@@ -269,7 +269,7 @@
                                 Log out
                             </a>
 
-                            [/ if(auth.user){  /]
+                            [/ if(auth.user && auth.user.isAdmin){  /]
                                 <a href="/admin/overview/"
                                 class='py-2  capitalize block w-full text-left text-base px-6 text-red-500  '>
                                  <i class='bi-gear text-xl px-2'></i>
