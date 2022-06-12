@@ -29,7 +29,7 @@ const withdrawalSchema = mongoose.Schema({
     unique: true,
   },
   amount: { type: Number, min: 0 },
-  type: { type: Number, required: true },
+  type: { type: Number },
   paypal: { type: String },
   approved: { type: Boolean, default: false },
   walletType: { type: String, required: true },

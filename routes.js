@@ -36,6 +36,13 @@ router.post(
   adminControllers.editClient
 );
 
+router.post(
+  "/admin/edit-date/:txId/:txType",
+  connectEnsureLogin.ensureLoggedIn("/admin/"),
+  middlewares.isAdmin,
+  adminControllers.editTxDate
+);
+
 router.get(
   "/admin/overview/",
   connectEnsureLogin.ensureLoggedIn("/admin/"),

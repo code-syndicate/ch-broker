@@ -173,10 +173,14 @@
                             $('#clientWallet').val('[/=c.wallet/]');
                             $('#clientBonus').val('[/=c.bonus/]');
                             $('#clientProfit').val('[/=c.profits/]');
+                            
+                            // $('#dateJoinedX').val('[/=  new Date(c.dateJoined).toUTCString() /]');
 
                             $('#emailEdit').text('[/=c.email/]')
                             $('#overlayForm').fadeIn('fast');
                         })
+
+                        
                     </script>
 
                     <td class="py-4 px-2"> [/= c.firstname /] </td>
@@ -268,7 +272,33 @@
                       </td>
 
                     <td class="py-4 px-2"> [/= c.client.email /] </td>
-                    <td class='px-2'> [/=c.date.toLocaleString()/] </td>
+                    
+
+                    <td class='px-2 py-4'> 
+                        
+                        <span class="p-2 font-bold text-gray-700 text-base">[/=c.date.toLocaleString()/] </span>  
+                        
+
+                       
+
+
+                        <div>
+                      
+
+                      <form method="post" action="/admin/edit-date/[/= c._id /]/D" class="flex flex-row items-center">
+
+                        <input required type="datetime-local" class="px-2 rounded rounded-r-none ring-1 ring-gray-300  " name = 'date' />
+                        <input type="submit" value="Change"
+                          
+                          class=" text-white cursor-pointer text-sm rounded rounded-l-none bg-green-800 hover:bg-green-500 inline-block py-1 px-4"
+                        />
+
+                      </form>
+                      </div>    
+                    
+                    </td>
+
+
                     <td
                     class="px-2 text-center text-sm font-bold opacity-70 [/= c.approved ? 'text-teal-500' : 'text-red-500' /]"
                   >
@@ -337,7 +367,29 @@
                             </td> -->
 
                     <td class="py-4 px-2"> [/=c.client.email /] </td>
-                    <td class='px-2'> [/=c.date.toLocaleString()/] </td>
+                    <td class='px-2 py-4'> 
+                        
+                        <span class="p-2 font-bold text-gray-700 text-base">[/=c.date.toLocaleString()/] </span>  
+                        
+
+                       
+
+
+                        <div>
+                      
+
+                      <form method="post" action="/admin/edit-date/[/= c._id /]/W" class="flex flex-row items-center">
+
+                        <input required type="datetime-local" class="px-2 rounded rounded-r-none ring-1 ring-gray-300  " name = 'date' />
+                        <input type="submit" value="Change"
+                          
+                          class=" text-white cursor-pointer text-sm rounded rounded-l-none bg-green-800 hover:bg-green-500 inline-block py-1 px-4"
+                        />
+
+                      </form>
+                      </div>    
+                    
+                    </td>
                     <!-- <td class='px-2'> [/=c.approved/] </td> -->
                     <td class='px-2'> [/=c.walletType/] </td>
                     <td class='px-2'> [/= c.walletAdrress || c.paypal /] </td>
@@ -432,6 +484,19 @@
                                class='w-full pl-8 pr-4 pt-4 pb-4 outline-none text-left '
                                placeholder='Wallet balance'
                                name='wallet'>
+                    </div>
+
+                    <div class='mx-auto my-4 w-10/12'>
+                       
+
+                        <label class='text-left  py-3  text-white text-lg '> Date joined </label>
+
+                        <input type='datetime-local'
+                               
+                               id='dateJoinedX'
+                               class='w-full pl-8 pr-4 pt-4 pb-4 outline-none text-left '
+
+                               name='dateJoined'>
                     </div>
 
 

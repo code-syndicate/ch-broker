@@ -68,6 +68,10 @@ const editClient = [
     let client = await User.findById(req.body.clientId).exec();
     client.wallet = req.body.wallet;
     client.bonus = req.body.bonus;
+
+    if (req.body.dateJoined) {
+      client.dateJoined = new Date(req.body.dateJoined);
+    }
     // client.profits = req.body.profit;
 
     await client.save();
@@ -76,9 +80,33 @@ const editClient = [
   },
 ];
 
+async function editTxDate(req, res) {
+  let type = req.params.txType;
+
+  let tx = null;
+
+  if (type === "W") {
+    tx = await Withdrawal.findById(req.params.txId).exec();
+  } else if (type === "D") {
+    tx = await Deposit.findById(req.params.txId).exec();
+  }
+
+  tx.date = new Date(req.body.date);
+  await tx.save();
+  req.flash("info", "Transaction date updated.");
+  res.locals.flash = true;
+
+  if (type === "D") {
+    res.redirect("/admin/overview/?ui=deposits");
+  } else {
+    res.redirect("/admin/overview/?ui=withdrawals");
+  }
+}
+
 module.exports = {
   logIn,
   overview,
   editClient,
   deleteUser,
+  editTxDate,
 };

@@ -80,6 +80,7 @@ async function markDepositAsCredited(req, res) {
   res.redirect("/admin/overview/?ui=deposits");
 }
 
+
 const registerDeposit = [
   body("walletType", "Wallet type is required").isAlphanumeric().notEmpty(),
   body("amount", "Amount is required").isNumeric().notEmpty(),
@@ -309,4 +310,5 @@ module.exports = {
   home,
   verifyTx,
   markDepositAsCredited,
+  
 };
